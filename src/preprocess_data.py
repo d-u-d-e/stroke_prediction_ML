@@ -20,15 +20,6 @@ df['smoking_status'] = df['smoking_status'].replace(
     {'Unknown': 0, 'formerly smoked': 1, 'never smoked': 2, 'smokes': 3}).astype(np.uint8)
 
 df.info()
-df.to_csv('../data/processed_dataset.csv')
+df.to_csv('../data/processed_dataset.csv', index=False)
 
-# Creating training and test set
-X = df[['gender', 'age', 'hypertension', 'heart_disease', 'work_type', 'avg_glucose_level', 'bmi']]
-y = df['stroke']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, random_state=50)
-
-X_train.to_csv('../data/train.csv')
-X_test.to_csv('../data/test.csv')
-
-print(df)
