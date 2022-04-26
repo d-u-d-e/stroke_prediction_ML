@@ -21,5 +21,3 @@ df['smoking_status'] = df['smoking_status'].replace(
 
 df.info()
 df.to_csv('../data/processed_dataset.csv', index=False)
-
-
