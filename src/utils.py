@@ -1,6 +1,7 @@
 import pandas as pd
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 
 def error_rate(y_true, y_pred):
@@ -24,4 +25,13 @@ def produce_dataset(url):
     sm = SMOTE()
     X, y = sm.fit_resample(X, y)
 
-    return train_test_split(X.to_numpy(), y.to_numpy(), train_size=0.7, random_state=51)
+    scaler = StandardScaler()
+
+    X_train, X_test, y_train, y_test = train_test_split(X.to_numpy(), y.to_numpy(), train_size=0.7, random_state=51)
+
+    # Computing the mean and the standard deviation of the training set
+    scaler.fit(X_train)
+    X_train_std = scaler.transform(X_train)
+    X_test_std = scaler.transform(X_test)
+
+    return X_train_std, X_test_std, y_train, y_test

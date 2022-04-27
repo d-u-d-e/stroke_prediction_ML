@@ -7,9 +7,10 @@ from src.utils import produce_dataset
 X_train, X_test, y_train, y_test = produce_dataset('../../data/processed_dataset.csv')
 
 # Cross validation
-hl_parameters = {'hidden_layer_sizes': [(50,), (100,), (50, 50,), (100, 100,)]}
+hl_parameters = {'hidden_layer_sizes': [(40, 40, 40,), (50, 50, 50), (60, 60, 60)]}
 
-mlp = MLPClassifier(max_iter=300, alpha=1e-4, solver='sgd', tol=1e-4, learning_rate_init=.1)
+mlp = MLPClassifier(max_iter=500, alpha=1e-4, solver='sgd', tol=1e-4, verbose=True, learning_rate_init=0.01,
+                    learning_rate='adaptive')
 
 mlp_cv = GridSearchCV(mlp, hl_parameters, verbose=1)
 
