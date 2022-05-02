@@ -8,7 +8,7 @@ X_train, X_test, y_train, y_test = produce_dataset('../../data/processed_dataset
 # Cross validation
 parameters = {'C': [1, 10, 100], 'gamma': [0.01, 0.1, 1.]}
 
-rbf_SVM = SVC(kernel='rbf')
+rbf_SVM = SVC(kernel='rbf', probability=True)
 
 svm_cv = GridSearchCV(rbf_SVM, parameters, verbose=1)
 
@@ -20,7 +20,8 @@ print("Score with best parameters: ", svm_cv.best_score_)
 print("\nAll scores on the grid: ", svm_cv.cv_results_['mean_test_score'])
 
 # Defining the model w.r.t. the best parameters found
-svm_model = SVC(kernel='rbf', C=svm_cv.best_params_['C'], gamma=svm_cv.best_params_['gamma'], verbose=True)
+svm_model = SVC(kernel='rbf', C=svm_cv.best_params_['C'], gamma=svm_cv.best_params_['gamma'], verbose=True,
+                probability=True)
 
 # Training the model
 svm_model.fit(X_train, y_train)

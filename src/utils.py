@@ -2,6 +2,7 @@ import pandas as pd
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import sklearn.metrics as mtr
 
 
 def error_rate(y_true, y_pred):
@@ -35,3 +36,24 @@ def produce_dataset(url):
     X_test_std = scaler.transform(X_test)
 
     return X_train_std, X_test_std, y_train, y_test
+
+
+def compute_scores(model, X_train, X_test, y_train, y_test):
+    y_train_pred = model.predict(X_train)
+    y_test_pred = model.predict(X_test)
+
+    accuracy_train = mtr.accuracy_score(y_train, y_train_pred)
+    accuracy_test = mtr.accuracy_score(y_test, y_test_pred)
+    precision_train = mtr.precision_score(y_train, y_train_pred)
+    precision_test = mtr.precision_score(y_test, y_test_pred)
+    recall_train = mtr.recall_score(y_train, y_train_pred)
+    recall_test = mtr.recall_score(y_test, y_test_pred)
+
+    print("SVM accuracy score on training: %f" % accuracy_train)
+    print("SVM accuracy score on test: %f" % accuracy_test)
+    print("SVM precision score on training: %f" % precision_train)
+    print("SVM precision score on test: %f" % precision_test)
+    print("SVM recall score on train: %f" % recall_train)
+    print("SVM recall score on test: %f" % recall_test)
+
+    return [accuracy_train, accuracy_test, precision_train, precision_test, recall_train, recall_test]
