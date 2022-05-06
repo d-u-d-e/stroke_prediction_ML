@@ -20,7 +20,8 @@ def produce_dataset(url):
     :return: X_train, X_test, y_train, y_test
     """
     df = pd.read_csv(url, header=0)
-    X = df[['gender', 'age', 'hypertension', 'heart_disease', 'work_type', 'avg_glucose_level', 'bmi']]
+    X = df[['gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type', 'Residence_type',
+            'avg_glucose_level', 'bmi', 'smoking_status']]
     y = df['stroke']
 
     sm = SMOTE()
